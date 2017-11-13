@@ -1,7 +1,8 @@
 # Change Log
-All notable changes to the "git-exclude" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 0.0.2
+
+- Added (no) skip update file check in local repository using git update-index --skip-worktree
 
 ## 0.0.1
 

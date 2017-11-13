@@ -2,28 +2,29 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as child from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
-    let disposable = vscode.commands.registerCommand('extension.editGitExclude', () => {
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.editGitExclude', () => {
         let ge = new GitExclude();
         ge.editGitExclude();
-    });
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.appendGitExclude', () => {
-        let ge = new GitExclude();
-        let uri = vscode.window.activeTextEditor.document.uri;
-        // console.log(rp);
-        ge.appendGitExcludeUri(uri);
-    });
-    context.subscriptions.push(disposable);
+    }));
     
-    disposable = vscode.commands.registerCommand('extension.appendGitExcludeUri', (fileUri) => {
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.appendGitExcludeUri', (fileUri) => {
         let ge = new GitExclude();
         ge.appendGitExcludeUri(fileUri);
-    });
+    }));
 
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.skipGitWorktreeUri', (fileUri) => {
+        let ge = new GitExclude();
+        ge.skipGitWorktree(fileUri);
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.noSkipGitWorktreeUri', (fileUri) => {
+        let ge = new GitExclude();
+        ge.noSkipGitWorktree(fileUri);
+    }));
+
 }
 
 // this method is called when your extension is deactivated
@@ -47,17 +48,51 @@ class GitExclude {
         return gitExcludeFile;
     }
 
-    public appendGitExcludeUri(fileUri) {
+    public getSelectedItemUri(fileUri) {
+        let editor = vscode.window.activeTextEditor; 
+        if (fileUri === undefined && editor) fileUri = editor.document.uri;
+        if (fileUri === undefined) return null;
+        return fileUri;
+    }
+
+    public skipGitWorktree(fileUri) {
+        fileUri = this.getSelectedItemUri(fileUri);
+        if (!fileUri) return;
+        let file = this.getWorkspaceRelativePath(fileUri);
+        this.runCommand("git update-index --skip-worktree " + file);
+    }
+
+    public noSkipGitWorktree(fileUri) {
+        fileUri = this.getSelectedItemUri(fileUri);
+        if (!fileUri) return;
+        let file = this.getWorkspaceRelativePath(fileUri);
+        this.runCommand("git update-index --no-skip-worktree " + file);
+    }
+
+    public runCommand(command) {
+        let data = child.execSync(command, {
+            cwd: vscode.workspace.rootPath,
+            encoding: 'utf8'
+        });
+        // console.log(data.toString());
+    }
+
+    private getWorkspaceRelativePath(fileUri) {
         let wf = vscode.workspace.getWorkspaceFolder(fileUri);
         let rp = path.relative(wf.uri.fsPath, fileUri.fsPath);
-        
-        this.appendGitExclude(rp);
+        return rp;
+    }
+
+    public appendGitExcludeUri(fileUri) {
+        fileUri = this.getSelectedItemUri(fileUri);
+        if (!fileUri) return;
+        this.appendGitExclude(this.getWorkspaceRelativePath(fileUri));
     }
 
     public appendGitExclude(filepath) {
         let file = this.prepareGitExclude();
         fs.appendFileSync(file,filepath + "\n");
-        vscode.window.showInformationMessage(filepath + "is appended!");
+        vscode.window.showInformationMessage(filepath + " is appended!");
         this.openFile(file);
     }
 

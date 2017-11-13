@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.18.0"
@@ -14,30 +14,43 @@
         "git"
     ],
     "activationEvents": [
-        "onCommand:extension.editGitExclude",
-        "onCommand:extension.appendGitExclude",
-        "onCommand:extension.appendGitExcludeUri"
+        "onCommand:GitExclude.editGitExclude",
+        "onCommand:GitExclude.appendGitExcludeUri",
+        "onCommand:GitExclude.skipGitWorktreeUri",
+        "onCommand:GitExclude.noSkipGitWorktreeUri"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.editGitExclude",
+                "command": "GitExclude.editGitExclude",
                 "title": "GitExclude: Edit exclude File"
             },
             {
-                "command": "extension.appendGitExclude",
-                "title": "GitExclude: Append Current File to exclude File"
+                "command": "GitExclude.appendGitExcludeUri",
+                "title": "GitExclude: Append Current File/Folder to exclude File"
             },
             {
-                "command": "extension.appendGitExcludeUri",
-                "title": "GitExclude: Append Current File/Folder to exclude File"
+                "command": "GitExclude.skipGitWorktreeUri",
+                "title": "GitExclude: Skip Current File in local repository in git"
+            },
+            {
+                "command": "GitExclude.noSkipGitWorktreeUri",
+                "title": "GitExclude: No skip Current File in local repository in git"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
-                    "command": "extension.appendGitExcludeUri",
+                    "command": "GitExclude.appendGitExcludeUri",
+                    "group": "GitExclude"
+                },
+                {
+                    "command": "GitExclude.skipGitWorktreeUri",
+                    "group": "GitExclude"
+                },
+                {
+                    "command": "GitExclude.noSkipGitWorktreeUri",
                     "group": "GitExclude"
                 }
             ]
