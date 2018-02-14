@@ -80,6 +80,7 @@ class GitExclude {
     private getWorkspaceRelativePath(fileUri) {
         let wf = vscode.workspace.getWorkspaceFolder(fileUri);
         let rp = path.relative(wf.uri.fsPath, fileUri.fsPath);
+        if (process.platform === "win32") rp = rp.replace('\\','/');
         return rp;
     }
 

@@ -1,0 +1,6 @@
+{
+  "GitExclude.editGitExclude.title": "GitExclude: Edit exclude File",
+  "GitExclude.appendGitExcludeUri.title": "GitExclude: Append Current File/Folder to exclude File",
+  "GitExclude.skipGitWorktreeUri.title" : "GitExclude: Skip Current File in local repository",
+  "GitExclude.noSkipGitWorktreeUri.title": "GitExclude: No skip Current File in local repository"
+}

@@ -1,0 +1,6 @@
+{
+  "GitExclude.editGitExclude.title": "GitExclude: excludeを編集",
+  "GitExclude.appendGitExcludeUri.title": "GitExclude: 現在のファイル/フォルダをexcludeに追加する",
+  "GitExclude.skipGitWorktreeUri.title" : "GitExclude: ローカルリポジトリで現在のファイルをスキップする",
+  "GitExclude.noSkipGitWorktreeUri.title": "GitExclude: ローカルリポジトリで現在のファイルをスキップしない"
+}

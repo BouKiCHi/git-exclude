@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.18.0"
@@ -19,24 +19,28 @@
         "onCommand:GitExclude.skipGitWorktreeUri",
         "onCommand:GitExclude.noSkipGitWorktreeUri"
     ],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/npm/npm.git"
+    },
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
                 "command": "GitExclude.editGitExclude",
-                "title": "GitExclude: Edit exclude File"
+                "title": "%GitExclude.editGitExclude.title%"
             },
             {
                 "command": "GitExclude.appendGitExcludeUri",
-                "title": "GitExclude: Append Current File/Folder to exclude File"
+                "title": "%GitExclude.appendGitExcludeUri.title%"
             },
             {
                 "command": "GitExclude.skipGitWorktreeUri",
-                "title": "GitExclude: Skip Current File in local repository in git"
+                "title": "%GitExclude.skipGitWorktreeUri.title%"
             },
             {
                 "command": "GitExclude.noSkipGitWorktreeUri",
-                "title": "GitExclude: No skip Current File in local repository in git"
+                "title": "%GitExclude.noSkipGitWorktreeUri.title%"
             }
         ],
         "menus": {
