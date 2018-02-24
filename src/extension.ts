@@ -36,7 +36,15 @@ class GitExclude {
         return path.join(vscode.workspace.rootPath,".git","info","exclude");
     }
 
+    private getGitPath() : string {
+        return path.join(vscode.workspace.rootPath,".git");
+    }
+
     private prepareGitExclude() : string {
+        if (!fs.existsSync(this.getGitPath())) {
+            vscode.window.showInformationMessage("Not git repository.");
+            return null;
+        }
         let gitExcludeFile = this.getGitExcludePath();
         let gitInfoDir = path.dirname(gitExcludeFile);
         if (!fs.existsSync(gitInfoDir)) fs.mkdirSync(gitInfoDir);
@@ -80,7 +88,7 @@ class GitExclude {
     private getWorkspaceRelativePath(fileUri) {
         let wf = vscode.workspace.getWorkspaceFolder(fileUri);
         let rp = path.relative(wf.uri.fsPath, fileUri.fsPath);
-        if (process.platform === "win32") rp = rp.replace('\\','/');
+        if (process.platform === "win32") rp = rp.replace(/\\/g,'/');
         return rp;
     }
 
@@ -92,8 +100,9 @@ class GitExclude {
 
     public appendGitExclude(filepath) {
         let file = this.prepareGitExclude();
+        if (!file) return;
         fs.appendFileSync(file,filepath + "\n");
-        vscode.window.showInformationMessage(filepath + " is appended!");
+        vscode.window.showInformationMessage(filepath + " is appended.");
         this.openFile(file);
     }
 
@@ -105,6 +114,7 @@ class GitExclude {
 
     public editGitExclude() {
         let file = this.prepareGitExclude();
+        if (!file) return;
         this.openFile(file);
     }
 }

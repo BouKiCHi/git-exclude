@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "boukichi",
     "engines": {
         "vscode": "^1.18.0"

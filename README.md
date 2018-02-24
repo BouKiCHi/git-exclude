@@ -10,13 +10,3 @@ This is an extension to ignore update/add file in local git repository.
 
 1. Skip/No skip update file check in local git repository.
 
-## Release Notes
-
-### 0.0.3
-
-* fixed separator to append path to exclude file in Windows.
-* added japanese localization text.
-
-### 0.0.2
-
-* Added (no) skip update file check in local repository using git update-index --skip-worktree
