@@ -2,8 +2,14 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "publisher": "boukichi",
+    "license": "MIT",
+    "homepage": "https://github.com/BouKiCHi/git-exclude",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BouKiCHi/git-exclude.git"
+    },
     "engines": {
         "vscode": "^1.18.0"
     },
@@ -13,7 +19,6 @@
     "keywords": [
         "git"
     ],
-    "license": "MIT",
     "activationEvents": [
         "onCommand:GitExclude.editGitExclude",
         "onCommand:GitExclude.appendGitExcludeUri",
@@ -22,10 +27,6 @@
         "onCommand:GitExclude.appendGitExcludeUriSCM",
         "onCommand:GitExclude.skipGitWorktreeUriSCM"
     ],
-    "repository": {
-        "type": "git",
-        "url": "http://github.com/npm/npm.git"
-    },
     "main": "./out/extension",
     "contributes": {
         "commands": [
@@ -93,5 +94,6 @@
         "@types/node": "^7.0.61",
         "typescript": "^2.8.3",
         "vscode": "^1.1.16"
-    }
+    },
+    "dependencies": {}
 }

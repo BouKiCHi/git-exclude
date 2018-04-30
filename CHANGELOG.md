@@ -1,5 +1,8 @@
 # Change Log
 
+### 0.1.2
+* update package.json
+
 ### 0.1.1
 * added context menu to scm item.
 * update package version.
