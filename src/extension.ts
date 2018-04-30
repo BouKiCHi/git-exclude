@@ -6,25 +6,31 @@ import * as child from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.editGitExclude', () => {
-        let ge = new GitExclude();
-        ge.editGitExclude();
+        (new GitExclude()).editGitExclude();
     }));
     
+    // explorer
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.appendGitExcludeUri', (fileUri) => {
-        let ge = new GitExclude();
-        ge.appendGitExcludeUri(fileUri);
+        (new GitExclude()).appendGitExcludeUri(fileUri);
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.skipGitWorktreeUri', (fileUri) => {
-        let ge = new GitExclude();
-        ge.skipGitWorktree(fileUri);
+        (new GitExclude()).skipGitWorktree(fileUri);
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.noSkipGitWorktreeUri', (fileUri) => {
-        let ge = new GitExclude();
-        ge.noSkipGitWorktree(fileUri);
+        (new GitExclude()).noSkipGitWorktree(fileUri);
     }));
 
+
+    // SCM
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.appendGitExcludeUriSCM', (state) => {
+        (new GitExclude()).appendGitExcludeUri(state.resourceUri);
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.skipGitWorktreeUriSCM', (state) => {
+        (new GitExclude()).skipGitWorktree(state.resourceUri);
+    }));
 }
 
 // this method is called when your extension is deactivated
@@ -68,6 +74,7 @@ class GitExclude {
         if (!fileUri) return;
         let file = this.getWorkspaceRelativePath(fileUri);
         this.runCommand("git update-index --skip-worktree " + file);
+        vscode.window.showInformationMessage(file + " is skipped from worktree.");
     }
 
     public noSkipGitWorktree(fileUri) {
@@ -75,6 +82,7 @@ class GitExclude {
         if (!fileUri) return;
         let file = this.getWorkspaceRelativePath(fileUri);
         this.runCommand("git update-index --no-skip-worktree " + file);
+        vscode.window.showInformationMessage(file + " is in worktree.");
     }
 
     public runCommand(command) {

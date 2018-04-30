@@ -1,5 +1,12 @@
 # Change Log
 
+### 0.1.1
+* added context menu to scm item.
+* update package version.
+
+### 0.1.0
+* (unknown)
+
 ### 0.0.4
 * show message if not a git repository.
 * fixed separator problem.
