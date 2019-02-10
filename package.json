@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "publisher": "boukichi",
     "license": "MIT",
     "homepage": "https://github.com/BouKiCHi/git-exclude",
@@ -91,9 +91,9 @@
     },
     "devDependencies": {
         "@types/mocha": "^5.2.5",
-        "@types/node": "^10.12.10",
-        "typescript": "^3.2.1",
-        "vscode": "^1.1.22"
+        "@types/node": "^10.12.24",
+        "typescript": "^3.3.3",
+        "vscode": "^1.1.29"
     },
     "dependencies": {}
 }

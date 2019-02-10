@@ -1,7 +1,10 @@
 # Change Log
 
+### 0.1.5
+* Added a slash when adding files to exclude.
+
 ### 0.1.2
-* update package.json
+* update package.json.
 
 ### 0.1.1
 * added context menu to scm item.

@@ -109,7 +109,7 @@ class GitExclude {
     public appendGitExclude(filepath) {
         let file = this.prepareGitExclude();
         if (!file) return;
-        fs.appendFileSync(file,filepath + "\n");
+        fs.appendFileSync(file, "/" + filepath + "\n");
         vscode.window.showInformationMessage(filepath + " is appended.");
         this.openFile(file);
     }
