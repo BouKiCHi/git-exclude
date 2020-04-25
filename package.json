@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "publisher": "boukichi",
     "license": "MIT",
     "homepage": "https://github.com/BouKiCHi/git-exclude",
