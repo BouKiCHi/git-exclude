@@ -5,7 +5,7 @@
     "version": "0.1.10",
     "publisher": "boukichi",
     "license": "MIT",
-    "icon": "icon.png",
+    "icon": "images/icon.png",
     "homepage": "https://github.com/BouKiCHi/git-exclude",
     "repository": {
         "type": "git",
