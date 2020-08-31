@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.2
+* Added assume-unchanged stuff.
+* Improved getting the path to the git directory when the workspace root is a child directory.
+
 ### 0.1.5
 * Added a slash when adding files to exclude.
 
