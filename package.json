@@ -23,10 +23,16 @@
     "activationEvents": [
         "onCommand:GitExclude.editGitExclude",
         "onCommand:GitExclude.appendGitExcludeUri",
+
         "onCommand:GitExclude.skipGitWorktreeUri",
         "onCommand:GitExclude.noSkipGitWorktreeUri",
+
+        "onCommand:GitExclude.setAssumeUnchangedUri",
+        "onCommand:GitExclude.noAssumeUnchangedUri",
+
         "onCommand:GitExclude.appendGitExcludeUriSCM",
-        "onCommand:GitExclude.skipGitWorktreeUriSCM"
+        "onCommand:GitExclude.skipGitWorktreeUriSCM",
+        "onCommand:GitExclude.setAssumeUnchangedSCM"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -48,13 +54,36 @@
                 "title": "%GitExclude.noSkipGitWorktreeUri.title%"
             },
             {
+                "command": "GitExclude.skipGitWorktreeUri",
+                "title": "%GitExclude.skipGitWorktreeUri.title%"
+            },
+            {
+                "command": "GitExclude.noSkipGitWorktreeUri",
+                "title": "%GitExclude.noSkipGitWorktreeUri.title%"
+            },
+
+            {
+                "command": "GitExclude.setAssumeUnchangedUri",
+                "title": "%GitExclude.setAssumeUnchangedUri.title%"
+            },
+            {
+                "command": "GitExclude.noAssumeUnchangedUri",
+                "title": "%GitExclude.noAssumeUnchangedUri.title%"
+            },
+
+            {
                 "command": "GitExclude.appendGitExcludeUriSCM",
                 "title": "%GitExclude.appendGitExcludeUri.title%"
             },
             {
                 "command": "GitExclude.skipGitWorktreeUriSCM",
                 "title": "%GitExclude.skipGitWorktreeUri.title%"
+            },
+            {
+                "command": "GitExclude.setAssumeUnchangedSCM",
+                "title": "%GitExclude.setAssumeUnchangedUri.title%"
             }
+            
         ],
         "menus": {
             "explorer/context": [
@@ -69,6 +98,14 @@
                 {
                     "command": "GitExclude.noSkipGitWorktreeUri",
                     "group": "GitExclude"
+                },
+                {
+                    "command": "GitExclude.setAssumeUnchangedUri",
+                    "group": "GitExclude"
+                },
+                {
+                    "command": "GitExclude.noAssumeUnchangedUri",
+                    "group": "GitExclude"
                 }
             ],
             "scm/resourceState/context": [
@@ -78,6 +115,10 @@
                 },
                 {
                     "command": "GitExclude.skipGitWorktreeUriSCM",
+                    "group": "GitExclude"
+                },
+                {
+                    "command": "GitExclude.setAssumeUnchangedSCM",
                     "group": "GitExclude"
                 }
             ]

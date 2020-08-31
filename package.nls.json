@@ -1,6 +1,8 @@
 {
   "GitExclude.editGitExclude.title": "GitExclude: Edit exclude File",
   "GitExclude.appendGitExcludeUri.title": "GitExclude: Append Current File/Folder to exclude File",
-  "GitExclude.skipGitWorktreeUri.title" : "GitExclude: skip file changes in local repository",
-  "GitExclude.noSkipGitWorktreeUri.title": "GitExclude: no skip file changes in local repository"
+  "GitExclude.skipGitWorktreeUri.title" : "GitExclude: Set Skipping file changes in the local repository(--skip-worktree)",
+  "GitExclude.noSkipGitWorktreeUri.title": "GitExclude: Restore from skipping file changes in the local repository(--no-skip-worktree)",
+  "GitExclude.setAssumeUnchangedUri.title" : "GitExclude: Set the status to assumed to be unchanged(--assume-unchanged)",
+  "GitExclude.noAssumeUnchangedUri.title" : "GitExclude: Restore the status from assumed to be unchanged(--no-assume-unchanged)"
 }

@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as child from 'child_process';
+import { runInThisContext } from 'vm';
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.editGitExclude', () => {
@@ -14,12 +15,22 @@ export function activate(context: vscode.ExtensionContext) {
         (new GitExclude()).appendGitExcludeUri(fileUri);
     }));
 
+    // skip-worktree 
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.skipGitWorktreeUri', (fileUri) => {
-        (new GitExclude()).skipGitWorktree(fileUri);
+        (new GitExclude()).setSkipGitWorktree(fileUri);
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.noSkipGitWorktreeUri', (fileUri) => {
-        (new GitExclude()).noSkipGitWorktree(fileUri);
+        (new GitExclude()).setNoSkipGitWorktree(fileUri);
+    }));
+
+    // assume-unchanged
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.setAssumeUnchangedUri', (fileUri) => {
+        (new GitExclude()).setAssumeUnchangedGitWorktree(fileUri);
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.noAssumeUnchangedUri', (fileUri) => {
+        (new GitExclude()).setNoAssumeUnchangedGitWorktree(fileUri);
     }));
 
 
@@ -29,7 +40,11 @@ export function activate(context: vscode.ExtensionContext) {
     }));
 
     context.subscriptions.push(vscode.commands.registerCommand('GitExclude.skipGitWorktreeUriSCM', (state) => {
-        (new GitExclude()).skipGitWorktree(state.resourceUri);
+        (new GitExclude()).setSkipGitWorktree(state.resourceUri);
+    }));
+
+    context.subscriptions.push(vscode.commands.registerCommand('GitExclude.setAssumeUnchangedSCM', (state) => {
+        (new GitExclude()).setAssumeUnchangedGitWorktree(state.resourceUri);
     }));
 }
 
@@ -38,13 +53,17 @@ export function deactivate() {
 }
 
 class GitExclude {
+
     private getGitExcludePath() : string {
-        return path.join(vscode.workspace.rootPath,".git","info","exclude");
+        var gitPath = this.getGitPath();
+        return path.join(gitPath,"info","exclude");
     }
 
     private getGitPath() : string {
-        return path.join(vscode.workspace.rootPath,".git");
+        var path = this.runCommand("git rev-parse --git-dir");
+        return path.trim();
     }
+    
 
     private prepareGitExclude() : string {
         if (!fs.existsSync(this.getGitPath())) {
@@ -69,28 +88,51 @@ class GitExclude {
         return fileUri;
     }
 
-    public skipGitWorktree(fileUri) {
+    public setAssumeUnchangedGitWorktree(fileUri) {
+        fileUri = this.getSelectedItemUri(fileUri);
+        if (!fileUri) return;
+        let file = this.getWorkspaceRelativePath(fileUri);
+        this.runCommand("git update-index --assume-unchanged " + file);
+        var text = "{file} is assumed to be unchanged.".replace("{file}", file);
+        vscode.window.showInformationMessage(text);
+    }
+
+    public setNoAssumeUnchangedGitWorktree(fileUri) {
+        fileUri = this.getSelectedItemUri(fileUri);
+        if (!fileUri) return;
+        let file = this.getWorkspaceRelativePath(fileUri);
+        this.runCommand("git update-index --no-assume-unchanged " + file);
+        var text = "{file} is restored from the state assumed to be unchanged.".replace("{file}", file);
+        vscode.window.showInformationMessage(text);
+    }
+
+
+    public setSkipGitWorktree(fileUri) {
         fileUri = this.getSelectedItemUri(fileUri);
         if (!fileUri) return;
         let file = this.getWorkspaceRelativePath(fileUri);
         this.runCommand("git update-index --skip-worktree " + file);
-        vscode.window.showInformationMessage(file + " is skipped from worktree.");
+
+        let text = `${file} is skipping file changes in the local repository.`;
+        vscode.window.showInformationMessage(text);
     }
 
-    public noSkipGitWorktree(fileUri) {
+    public setNoSkipGitWorktree(fileUri) {
         fileUri = this.getSelectedItemUri(fileUri);
         if (!fileUri) return;
         let file = this.getWorkspaceRelativePath(fileUri);
         this.runCommand("git update-index --no-skip-worktree " + file);
-        vscode.window.showInformationMessage(file + " is in worktree.");
+        let text = `${file} is restored from skipping file changes in the local repository.`;
+        vscode.window.showInformationMessage(text);
     }
 
-    public runCommand(command) {
-        let data = child.execSync(command, {
+    public runCommand(command) : string {
+        let stdout = child.execSync(command, {
             cwd: vscode.workspace.rootPath,
             encoding: 'utf8'
         });
-        // console.log(data.toString());
+
+        return stdout.toString();
     }
 
     private getWorkspaceRelativePath(fileUri) {
