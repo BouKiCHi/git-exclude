@@ -60,8 +60,11 @@ class GitExclude {
     }
 
     private getGitPath() : string {
-        var path = this.runCommand("git rev-parse --git-dir");
-        return path.trim();
+        var gitPath = this.runCommand("git rev-parse --git-dir");
+        if (gitPath) {
+            gitPath = path.resolve(vscode.workspace.rootPath, gitPath)
+        }
+        return gitPath.trim();
     }
     
 
