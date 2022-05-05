@@ -1,6 +1,10 @@
 # Change Log
 
-### 0.2
+### 0.3.0
+* Added "Show current File/Folder status"
+* Improved Context menu
+
+### 0.2.0
 * Added assume-unchanged stuff.
 * Improved getting the path to the git directory when the workspace root is a child directory.
 

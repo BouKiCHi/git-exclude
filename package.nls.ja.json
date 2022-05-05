@@ -1,8 +1,9 @@
 {
-  "GitExclude.editGitExclude.title": "GitExclude: excludeを編集",
-  "GitExclude.appendGitExcludeUri.title": "GitExclude: 現在のファイル/フォルダをexcludeに追加する",
-  "GitExclude.skipGitWorktreeUri.title" : "GitExclude: ローカルリポジトリのファイル変更をスキップします(--skip-worktree)",
-  "GitExclude.noSkipGitWorktreeUri.title": "GitExclude: ローカルリポジトリのファイル変更をスキップしないように復帰します(--no-skip-worktree)",
-  "GitExclude.setAssumeUnchangedUri.title" : "GitExclude: ファイルを未変更に設定します(--assume-unchanged)",
-  "GitExclude.noAssumeUnchangedUri.title" : "GitExclude: ファイルを未変更から復帰します(--no-assume-unchanged)"
+  "GitExclude.showFileStatus.title": "ファイル/フォルダの現在の状態を表示します",
+  "GitExclude.editGitExclude.title": "excludeを編集します",
+  "GitExclude.appendGitExcludeUri.title": "現在のファイル/フォルダをexcludeに追加します",
+  "GitExclude.skipGitWorktreeUri.title" : "変更をスキップを設定します(--skip-worktree)",
+  "GitExclude.noSkipGitWorktreeUri.title": "変更のスキップを解除します(--no-skip-worktree)",
+  "GitExclude.setAssumeUnchangedUri.title" : "状態を未変更に設定します(--assume-unchanged)",
+  "GitExclude.noAssumeUnchangedUri.title" : "状態を未変更から復帰します(--no-assume-unchanged)"
 }
