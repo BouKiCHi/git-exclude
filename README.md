@@ -3,6 +3,8 @@
  The extension's main function is ignoring update/add file in local git repository.
  This means to be clean repository from test or debug materials, or to be clean from specific user's settings.
 
+[CHANGELOG.md](CHANGELOG.md)
+
 ## How to use
 
 There are two ways to call this extension.

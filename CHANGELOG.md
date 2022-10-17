@@ -1,4 +1,7 @@
-# Change Log
+# CHANGELOG
+
+### 0.3.1
+* Removed duplicate commands in package.json
 
 ### 0.3.0
 * Added "Show current File/Folder status"

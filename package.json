@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "publisher": "boukichi",
     "license": "MIT",
     "icon": "images/icon.png",
@@ -48,16 +48,6 @@
             {
                 "command": "GitExclude.appendGitExcludeUri",
                 "title": "%GitExclude.appendGitExcludeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.skipGitWorktreeUri",
-                "title": "%GitExclude.skipGitWorktreeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.noSkipGitWorktreeUri",
-                "title": "%GitExclude.noSkipGitWorktreeUri.title%",
                 "category": "GitExclude"
             },
             {
@@ -123,7 +113,6 @@
                     "group": "GitExclude"
                 }
             ],
-
             "git-exclude.explorer-submenu": [
                 {
                     "command": "GitExclude.appendGitExcludeUri",
@@ -146,7 +135,6 @@
                     "group": "GitExclude@5"
                 }
             ],
-
             "git-exclude.submenu.skip": [
                 {
                     "command": "GitExclude.skipGitWorktreeUri",
@@ -167,7 +155,6 @@
                     "group": "GitExcludeAssume@2"
                 }
             ],
-
             "scm/resourceState/context": [
                 {
                     "command": "GitExclude.appendGitExcludeUriSCM",
