@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### 0.4.0
+* dependencies and vscode engine version are updated.
+
 ### 0.3.1
 * Removed duplicate commands in package.json
 

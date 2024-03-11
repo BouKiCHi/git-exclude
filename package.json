@@ -2,7 +2,7 @@
     "name": "git-exclude",
     "displayName": "Git Exclude",
     "description": "Edit Git exclude File",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "publisher": "boukichi",
     "license": "MIT",
     "icon": "images/icon.png",
@@ -12,7 +12,7 @@
         "url": "https://github.com/BouKiCHi/git-exclude.git"
     },
     "engines": {
-        "vscode": "^1.18.0"
+        "vscode": "^1.87.0"
     },
     "categories": [
         "Other"
@@ -20,18 +20,7 @@
     "keywords": [
         "git"
     ],
-    "activationEvents": [
-        "onCommand:GitExclude.showFileStatus",
-        "onCommand:GitExclude.editGitExclude",
-        "onCommand:GitExclude.appendGitExcludeUri",
-        "onCommand:GitExclude.skipGitWorktreeUri",
-        "onCommand:GitExclude.noSkipGitWorktreeUri",
-        "onCommand:GitExclude.setAssumeUnchangedUri",
-        "onCommand:GitExclude.noAssumeUnchangedUri",
-        "onCommand:GitExclude.appendGitExcludeUriSCM",
-        "onCommand:GitExclude.skipGitWorktreeUriSCM",
-        "onCommand:GitExclude.setAssumeUnchangedSCM"
-    ],
+    "activationEvents": [],
     "main": "./out/extension",
     "contributes": {
         "commands": [
@@ -171,24 +160,37 @@
             ]
         },
         "submenus": [
-            {"id": "git-exclude.explorer-submenu", "label": "GitExclude" },
-            {"id": "git-exclude.submenu.skip", "label": "Skip" },
-            {"id": "git-exclude.submenu.assume", "label": "Assume" }
+            {
+                "id": "git-exclude.explorer-submenu",
+                "label": "GitExclude"
+            },
+            {
+                "id": "git-exclude.submenu.skip",
+                "label": "Skip"
+            },
+            {
+                "id": "git-exclude.submenu.assume",
+                "label": "Assume"
+            }
         ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "vscode-test"
     },
     "devDependencies": {
-        "@types/mocha": "^8.0.3",
-        "@types/node": "^14.6.2",
-        "minimist": "^1.2.6",
-        "typescript": "^4.0.2",
-        "vscode": "^1.1.37"
-    },
-    "dependencies": {}
+        "@types/mocha": "^10.0.6",
+        "@types/node": "18.x",
+        "@types/vscode": "^1.87.0",
+        "@typescript-eslint/eslint-plugin": "^7.0.2",
+        "@typescript-eslint/parser": "^7.0.2",
+        "@vscode/test-cli": "^0.0.6",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.56.0",
+        "typescript": "^5.4.2"
+    }
 }
