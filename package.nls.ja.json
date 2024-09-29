@@ -2,8 +2,9 @@
   "GitExclude.showFileStatus.title": "ファイル/フォルダの現在の状態を表示します",
   "GitExclude.editGitExclude.title": "excludeを編集します",
   "GitExclude.appendGitExcludeUri.title": "現在のファイル/フォルダをexcludeに追加します",
-  "GitExclude.skipGitWorktreeUri.title" : "変更をスキップを設定します(--skip-worktree)",
+  "GitExclude.skipGitWorktreeUri.title": "変更をスキップを設定します(--skip-worktree)",
   "GitExclude.noSkipGitWorktreeUri.title": "変更のスキップを解除します(--no-skip-worktree)",
-  "GitExclude.setAssumeUnchangedUri.title" : "状態を未変更に設定します(--assume-unchanged)",
-  "GitExclude.noAssumeUnchangedUri.title" : "状態を未変更から復帰します(--no-assume-unchanged)"
+  "GitExclude.setAssumeUnchangedUri.title": "状態を未変更に設定します(--assume-unchanged)",
+  "GitExclude.noAssumeUnchangedUri.title": "状態を未変更から復帰します(--no-assume-unchanged)",
+  "GitExclude.showAllSkipFile.title": "すべてのスキップされたファイルを表示"
 }

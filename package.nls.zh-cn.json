@@ -1,0 +1,10 @@
+{
+  "GitExclude.showFileStatus.title": "显示当前文件/文件夹状态",
+  "GitExclude.editGitExclude.title": "编辑 exclude 文件",
+  "GitExclude.appendGitExcludeUri.title": "将当前文件/文件夹添加到 exclude",
+  "GitExclude.skipGitWorktreeUri.title": "设置跳过更改 (--skip-worktree)",
+  "GitExclude.noSkipGitWorktreeUri.title": "取消跳过更改 (--no-skip-worktree)",
+  "GitExclude.setAssumeUnchangedUri.title": "设置状态为未更改 (--assume-unchanged)",
+  "GitExclude.noAssumeUnchangedUri.title": "恢复状态为已更改 (--no-assume-unchanged)",
+  "GitExclude.showAllSkipFile.title": "显示所有被跳过的文件"
+}

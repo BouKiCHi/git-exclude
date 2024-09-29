@@ -1,0 +1,10 @@
+{
+  "{0} is assumed to be unchanged.": "{0} は変更されていないと想定されます。",
+  "{0} is restored from the state assumed to be unchanged.": "{0} は変更されていないと想定された状態から復元されました。",
+  "{0} is skipping file changes in the local repository.": "{0} はローカルリポジトリのファイル変更をスキップしています。",
+  "{0} is restored from skipping file changes in the local repository.": "{0} はローカルリポジトリのファイル変更のスキップから復元されました。",
+  "{0} is appended.": "{0} が追加されました。",
+  "There are no files marked as skip in the current repository.": "現在のリポジトリにスキップとマークされたファイルはありません。",
+  "Files marked as skip in the current repository:": "現在のリポジトリでスキップとマークされたファイル：",
+  "Error retrieving the list of skip files: {0}": "スキップファイルのリスト取得中にエラーが発生しました：{0}"
+}
