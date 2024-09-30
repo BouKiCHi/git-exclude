@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.4.1
+* added some feature from [@cl1107],
+ International Chinese Simplified Chinese support, new showAllSkipFile command.
+
 ### 0.4.0
 * dependencies and vscode engine version are updated.
 
