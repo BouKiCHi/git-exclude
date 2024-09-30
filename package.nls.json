@@ -2,8 +2,9 @@
   "GitExclude.showFileStatus.title": "Show current File/Folder status",
   "GitExclude.editGitExclude.title": "Edit exclude File",
   "GitExclude.appendGitExcludeUri.title": "Add current File/Folder to exclude",
-   "GitExclude.skipGitWorktreeUri.title": "Set skip changes (--skip-worktree)",
-   "GitExclude.noSkipGitWorktreeUri.title": "Unskip changes (--no-skip-worktree)",
-   "GitExclude.setAssumeUnchangedUri.title": "Set state unchanged (--assume-unchanged)",
-   "GitExclude.noAssumeUnchangedUri.title": "Return state from unchanged (--no-assume-unchanged)"
+  "GitExclude.skipGitWorktreeUri.title": "Set skip changes (--skip-worktree)",
+  "GitExclude.noSkipGitWorktreeUri.title": "Unskip changes (--no-skip-worktree)",
+  "GitExclude.setAssumeUnchangedUri.title": "Set state unchanged (--assume-unchanged)",
+  "GitExclude.noAssumeUnchangedUri.title": "Return state from unchanged (--no-assume-unchanged)",
+  "GitExclude.showAllSkipFile.title": "Show all skipped files"
 }

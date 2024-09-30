@@ -1,196 +1,225 @@
 {
-    "name": "git-exclude",
-    "displayName": "Git Exclude",
-    "description": "Edit Git exclude File",
-    "version": "0.4.0",
-    "publisher": "boukichi",
-    "license": "MIT",
-    "icon": "images/icon.png",
-    "homepage": "https://github.com/BouKiCHi/git-exclude",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BouKiCHi/git-exclude.git"
-    },
-    "engines": {
-        "vscode": "^1.87.0"
-    },
-    "categories": [
-        "Other"
+  "name": "git-exclude",
+  "displayName": "Git Exclude",
+  "description": "Edit Git exclude File",
+  "version": "0.4.0",
+  "publisher": "boukichi",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "homepage": "https://github.com/BouKiCHi/git-exclude",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BouKiCHi/git-exclude.git"
+  },
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "git"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension",
+  "l10n": "./l10n",
+  "contributes": {
+    "commands": [
+      {
+        "command": "GitExclude.showFileStatus",
+        "title": "%GitExclude.showFileStatus.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.editGitExclude",
+        "title": "%GitExclude.editGitExclude.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.appendGitExcludeUri",
+        "title": "%GitExclude.appendGitExcludeUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.skipGitWorktreeUri",
+        "title": "%GitExclude.skipGitWorktreeUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.noSkipGitWorktreeUri",
+        "title": "%GitExclude.noSkipGitWorktreeUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.setAssumeUnchangedUri",
+        "title": "%GitExclude.setAssumeUnchangedUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.noAssumeUnchangedUri",
+        "title": "%GitExclude.noAssumeUnchangedUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.appendGitExcludeUriSCM",
+        "title": "%GitExclude.appendGitExcludeUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.skipGitWorktreeUriSCM",
+        "title": "%GitExclude.skipGitWorktreeUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.setAssumeUnchangedSCM",
+        "title": "%GitExclude.setAssumeUnchangedUri.title%",
+        "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.showAllSkipFile",
+        "title": "%GitExclude.showAllSkipFile.title%",
+        "category": "GitExclude"
+      }
     ],
-    "keywords": [
-        "git"
-    ],
-    "activationEvents": [],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "GitExclude.showFileStatus",
-                "title": "%GitExclude.showFileStatus.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.editGitExclude",
-                "title": "%GitExclude.editGitExclude.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.appendGitExcludeUri",
-                "title": "%GitExclude.appendGitExcludeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.skipGitWorktreeUri",
-                "title": "%GitExclude.skipGitWorktreeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.noSkipGitWorktreeUri",
-                "title": "%GitExclude.noSkipGitWorktreeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.setAssumeUnchangedUri",
-                "title": "%GitExclude.setAssumeUnchangedUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.noAssumeUnchangedUri",
-                "title": "%GitExclude.noAssumeUnchangedUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.appendGitExcludeUriSCM",
-                "title": "%GitExclude.appendGitExcludeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.skipGitWorktreeUriSCM",
-                "title": "%GitExclude.skipGitWorktreeUri.title%",
-                "category": "GitExclude"
-            },
-            {
-                "command": "GitExclude.setAssumeUnchangedSCM",
-                "title": "%GitExclude.setAssumeUnchangedUri.title%",
-                "category": "GitExclude"
-            }
-        ],
-        "menus": {
-            "commandPalette": [
-                {
-                    "command": "GitExclude.appendGitExcludeUriSCM",
-                    "when": "false"
-                },
-                {
-                    "command": "GitExclude.skipGitWorktreeUriSCM",
-                    "when": "false"
-                },
-                {
-                    "command": "GitExclude.setAssumeUnchangedSCM",
-                    "when": "false"
-                }
-            ],
-            "explorer/context": [
-                {
-                    "submenu": "git-exclude.explorer-submenu",
-                    "group": "GitExclude"
-                }
-            ],
-            "editor/title/context": [
-                {
-                    "submenu": "git-exclude.explorer-submenu",
-                    "group": "GitExclude"
-                }
-            ],
-            "git-exclude.explorer-submenu": [
-                {
-                    "command": "GitExclude.appendGitExcludeUri",
-                    "group": "GitExclude@1"
-                },
-                {
-                    "command": "GitExclude.editGitExclude",
-                    "group": "GitExclude@2"
-                },
-                {
-                    "command": "GitExclude.showFileStatus",
-                    "group": "GitExclude@3"
-                },
-                {
-                    "submenu": "git-exclude.submenu.skip",
-                    "group": "GitExclude@4"
-                },
-                {
-                    "submenu": "git-exclude.submenu.assume",
-                    "group": "GitExclude@5"
-                }
-            ],
-            "git-exclude.submenu.skip": [
-                {
-                    "command": "GitExclude.skipGitWorktreeUri",
-                    "group": "GitExcludeSkip@1"
-                },
-                {
-                    "command": "GitExclude.noSkipGitWorktreeUri",
-                    "group": "GitExcludeSkip@2"
-                }
-            ],
-            "git-exclude.submenu.assume": [
-                {
-                    "command": "GitExclude.setAssumeUnchangedUri",
-                    "group": "GitExcludeAssume@1"
-                },
-                {
-                    "command": "GitExclude.noAssumeUnchangedUri",
-                    "group": "GitExcludeAssume@2"
-                }
-            ],
-            "scm/resourceState/context": [
-                {
-                    "command": "GitExclude.appendGitExcludeUriSCM",
-                    "group": "GitExclude@1"
-                },
-                {
-                    "command": "GitExclude.skipGitWorktreeUriSCM",
-                    "group": "GitExclude"
-                },
-                {
-                    "command": "GitExclude.setAssumeUnchangedSCM",
-                    "group": "GitExclude"
-                }
-            ]
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "GitExclude.appendGitExcludeUriSCM",
+          "when": "false"
         },
-        "submenus": [
-            {
-                "id": "git-exclude.explorer-submenu",
-                "label": "GitExclude"
-            },
-            {
-                "id": "git-exclude.submenu.skip",
-                "label": "Skip"
-            },
-            {
-                "id": "git-exclude.submenu.assume",
-                "label": "Assume"
-            }
-        ]
+        {
+          "command": "GitExclude.skipGitWorktreeUriSCM",
+          "when": "false"
+        },
+        {
+          "command": "GitExclude.setAssumeUnchangedSCM",
+          "when": "false"
+        },
+        {
+          "command": "GitExclude.showAllSkipFile"
+        }
+      ],
+      "explorer/context": [
+        {
+          "submenu": "git-exclude.explorer-submenu",
+          "group": "GitExclude"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "submenu": "git-exclude.explorer-submenu",
+          "group": "GitExclude"
+        }
+      ],
+      "git-exclude.explorer-submenu": [
+        {
+          "command": "GitExclude.appendGitExcludeUri",
+          "group": "GitExclude@1"
+        },
+        {
+          "command": "GitExclude.editGitExclude",
+          "group": "GitExclude@2"
+        },
+        {
+          "command": "GitExclude.showFileStatus",
+          "group": "GitExclude@3"
+        },
+        {
+          "submenu": "git-exclude.submenu.skip",
+          "group": "GitExclude@4"
+        },
+        {
+          "submenu": "git-exclude.submenu.assume",
+          "group": "GitExclude@5"
+        }
+      ],
+      "git-exclude.submenu.skip": [
+        {
+          "command": "GitExclude.skipGitWorktreeUri",
+          "group": "GitExcludeSkip@1"
+        },
+        {
+          "command": "GitExclude.noSkipGitWorktreeUri",
+          "group": "GitExcludeSkip@2"
+        }
+      ],
+      "git-exclude.submenu.assume": [
+        {
+          "command": "GitExclude.setAssumeUnchangedUri",
+          "group": "GitExcludeAssume@1"
+        },
+        {
+          "command": "GitExclude.noAssumeUnchangedUri",
+          "group": "GitExcludeAssume@2"
+        }
+      ],
+      "scm/resourceState/context": [
+        {
+          "command": "GitExclude.appendGitExcludeUriSCM",
+          "group": "GitExclude@1"
+        },
+        {
+          "command": "GitExclude.skipGitWorktreeUriSCM",
+          "group": "GitExclude"
+        },
+        {
+          "command": "GitExclude.setAssumeUnchangedSCM",
+          "group": "GitExclude"
+        }
+      ]
     },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "pretest": "npm run compile && npm run lint",
-        "lint": "eslint src --ext ts",
-        "test": "vscode-test"
+    "submenus": [
+      {
+        "id": "git-exclude.explorer-submenu",
+        "label": "GitExclude"
+      },
+      {
+        "id": "git-exclude.submenu.skip",
+        "label": "Skip"
+      },
+      {
+        "id": "git-exclude.submenu.assume",
+        "label": "Assume"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.87.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vscode/test-cli": "^0.0.6",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.4.2"
+  },
+  "localizations": [
+    {
+      "language": "zh-cn",
+      "translations": [
+        {
+          "path": "./package.nls.zh-cn.json",
+          "language": "zh-cn"
+        }
+      ]
     },
-    "devDependencies": {
-        "@types/mocha": "^10.0.6",
-        "@types/node": "18.x",
-        "@types/vscode": "^1.87.0",
-        "@typescript-eslint/eslint-plugin": "^7.0.2",
-        "@typescript-eslint/parser": "^7.0.2",
-        "@vscode/test-cli": "^0.0.6",
-        "@vscode/test-electron": "^2.3.9",
-        "eslint": "^8.56.0",
-        "typescript": "^5.4.2"
+    {
+      "language": "ja",
+      "translations": [
+        {
+          "path": "./package.nls.ja.json",
+          "language": "ja"
+        }
+      ]
     }
+  ]
 }

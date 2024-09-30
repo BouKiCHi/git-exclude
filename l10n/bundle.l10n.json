@@ -1,0 +1,10 @@
+{
+  "{0} is assumed to be unchanged.": "{0} is assumed to be unchanged.",
+  "{0} is restored from the state assumed to be unchanged.": "{0} is restored from the state assumed to be unchanged.",
+  "{0} is skipping file changes in the local repository.": "{0} is skipping file changes in the local repository.",
+  "{0} is restored from skipping file changes in the local repository.": "{0} is restored from skipping file changes in the local repository.",
+  "{0} is appended.": "{0} is appended.",
+  "There are no files marked as skip in the current repository.": "There are no files marked as skip in the current repository.",
+  "Files marked as skip in the current repository:": "Files marked as skip in the current repository:",
+  "Error retrieving the list of skip files: {0}": "Error retrieving the list of skip files: {0}"
+}

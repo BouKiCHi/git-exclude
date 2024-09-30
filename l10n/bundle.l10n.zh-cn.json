@@ -1,0 +1,10 @@
+{
+  "{0} is assumed to be unchanged.": "假定 {0} 未发生变化。",
+  "{0} is restored from the state assumed to be unchanged.": "{0} 已从假定未变化的状态恢复。",
+  "{0} is skipping file changes in the local repository.": "{0} 正在跳过本地仓库中的文件变更。",
+  "{0} is restored from skipping file changes in the local repository.": "{0} 已从跳过本地仓库文件变更的状态恢复。",
+  "{0} is appended.": "{0} 已追加。",
+  "There are no files marked as skip in the current repository.": "当前仓库中没有标记为跳过的文件。",
+  "Files marked as skip in the current repository:": "当前仓库中标记为跳过的文件：",
+  "Error retrieving the list of skip files: {0}": "获取跳过文件列表时出错：{0}"
+}
