@@ -1,5 +1,8 @@
 # CHANGELOG
 
+### 0.4.2
+* added network drive path suuport for windows.
+
 ### 0.4.1
 * added some feature from [@cl1107],
  International Chinese Simplified Chinese support, new showAllSkipFile command.
