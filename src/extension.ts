@@ -74,7 +74,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       'GitExclude.appendGitExcludeUriSCM',
       (state) => {
-        GitExcludeInstance(state.resourceUri).appendGitExcludeUri();
+        GitExcludeInstance(state?.resourceUri).appendGitExcludeUri();
       }
     )
   );
@@ -83,7 +83,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       'GitExclude.skipGitWorktreeUriSCM',
       (state) => {
-        GitExcludeInstance(state.resourceUri).setSkipGitWorktree();
+        GitExcludeInstance(state?.resourceUri).setSkipGitWorktree();
       }
     )
   );
@@ -92,7 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       'GitExclude.setAssumeUnchangedSCM',
       (state) => {
-        GitExcludeInstance(state.resourceUri).setAssumeUnchangedGitWorktree();
+        GitExcludeInstance(state?.resourceUri).setAssumeUnchangedGitWorktree();
       }
     )
   );
