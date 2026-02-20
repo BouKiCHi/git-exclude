@@ -1,5 +1,14 @@
 # CHANGELOG
 
+### 0.4.5
+* Hardened git command execution (safer process invocation and argument handling).
+* Added guards for missing workspace/file context to avoid runtime errors.
+* Reduced duplicated update-index logic and improved maintainability.
+* Prevented duplicate entries when appending to `.git/info/exclude`.
+* Added/updated localization messages (en/ja/zh-cn).
+* Added CI workflow for compile, lint, and test on GitHub Actions.
+* Added tests for skip-file parsing logic.
+
 ### 0.4.2
 * added network drive path suuport for windows.
 

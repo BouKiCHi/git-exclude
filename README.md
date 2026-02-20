@@ -30,3 +30,12 @@ The function is for ignoring files which are managed by git.
 Run "git update-index --skip-worktree" to ignore the file updates.
 
 This has also an opposing function, undo the ignoring of updates with "git update-index --no-skip-worktree".
+
+## Development
+
+Run the following commands in the repository root:
+
+* `npm ci`: install dependencies
+* `npm run compile`: compile TypeScript to `out/`
+* `npm run lint`: run ESLint
+* `npm test`: run extension tests
