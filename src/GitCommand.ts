@@ -3,15 +3,30 @@ import * as child from 'child_process';
 import * as os from 'os';
 import { getCurrentWorkspaceFolder } from './getFolder';
 
+type ExecFileSync = (
+  command: string,
+  args: readonly string[],
+  options?: child.ExecFileSyncOptionsWithStringEncoding
+) => string | Buffer;
+
 export class GitCommand {
-  constructor() {}
+  private readonly execFileSyncFn: ExecFileSync;
+  private readonly getWorkspaceFolderFn: () => string | undefined;
+
+  constructor(
+    execFileSyncFn: ExecFileSync = child.execFileSync,
+    getWorkspaceFolderFn: () => string | undefined = getCurrentWorkspaceFolder
+  ) {
+    this.execFileSyncFn = execFileSyncFn;
+    this.getWorkspaceFolderFn = getWorkspaceFolderFn;
+  }
 
   private quoteForPowerShell(value: string): string {
     return `'${value.replace(/'/g, "''")}'`;
   }
 
   public runCommand(command: string, args: string[] = []): string {
-    const workspacePath = getCurrentWorkspaceFolder();
+    const workspacePath = this.getWorkspaceFolderFn();
     if (!workspacePath) {
       throw new Error('No workspace folder is available.');
     }
@@ -25,7 +40,7 @@ export class GitCommand {
       const psCommand = `& ${this.quoteForPowerShell(command)} ${args
         .map((arg) => this.quoteForPowerShell(arg))
         .join(' ')}`;
-      const stdout = child.execFileSync(
+      const stdout = this.execFileSyncFn(
         'pwsh',
         [
           '-NoProfile',
@@ -42,7 +57,7 @@ export class GitCommand {
       return stdout.toString();
     }
 
-    const stdout = child.execFileSync(command, args, {
+    const stdout = this.execFileSyncFn(command, args, {
       cwd: workspacePath,
       encoding: 'utf8'
     });

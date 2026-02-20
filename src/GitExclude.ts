@@ -5,6 +5,14 @@ import { FileItem } from './FileItem';
 import { GitCommand } from './GitCommand';
 import { GitPath } from './GitPath';
 
+export function parseSkippedFiles(lsFilesOutput: string): string[] {
+  return lsFilesOutput
+    .split('\n')
+    .filter((line) => line.startsWith('S '))
+    .map((line) => line.substring(2).trim())
+    .filter((line) => line.length > 0);
+}
+
 export class GitExclude {
   gitCommand: GitCommand;
   fileItem: FileItem;
@@ -34,6 +42,20 @@ export class GitExclude {
     );
   }
 
+  private runUpdateIndex(
+    flag: string,
+    file: string,
+    successMessage: string,
+    errorAction: string
+  ) {
+    try {
+      this.gitCommand.runCommand('git', ['update-index', flag, file]);
+      vscode.window.showInformationMessage(vscode.l10n.t(successMessage, file));
+    } catch (error) {
+      this.showError(error, errorAction);
+    }
+  }
+
   // git ls-files -v
   public showFileStatus() {
     const file = this.getTargetRelativeFile();
@@ -55,65 +77,57 @@ export class GitExclude {
   public setAssumeUnchangedGitWorktree() {
     const file = this.getTargetRelativeFile();
     if (!file) return;
-    try {
-      this.gitCommand.runCommand('git', ['update-index', '--assume-unchanged', file]);
-      const text = vscode.l10n.t('{0} is assumed to be unchanged.', file);
-      vscode.window.showInformationMessage(text);
-    } catch (error) {
-      this.showError(error, 'set assume-unchanged');
-    }
+    this.runUpdateIndex(
+      '--assume-unchanged',
+      file,
+      '{0} is assumed to be unchanged.',
+      'set assume-unchanged'
+    );
   }
 
   // git update-index --no-assume-unchanged
   public setNoAssumeUnchangedGitWorktree() {
     const file = this.getTargetRelativeFile();
     if (!file) return;
-    try {
-      this.gitCommand.runCommand('git', [
-        'update-index',
-        '--no-assume-unchanged',
-        file
-      ]);
-      const text = vscode.l10n.t(
-        '{0} is restored from the state assumed to be unchanged.',
-        file
-      );
-      vscode.window.showInformationMessage(text);
-    } catch (error) {
-      this.showError(error, 'unset assume-unchanged');
-    }
+    this.runUpdateIndex(
+      '--no-assume-unchanged',
+      file,
+      '{0} is restored from the state assumed to be unchanged.',
+      'unset assume-unchanged'
+    );
   }
 
   // git update-index --skip-worktree
   public setSkipGitWorktree() {
     const file = this.getTargetRelativeFile();
     if (!file) return;
-    try {
-      this.gitCommand.runCommand('git', ['update-index', '--skip-worktree', file]);
-      const text = vscode.l10n.t(
-        '{0} is skipping file changes in the local repository.',
-        file
-      );
-      vscode.window.showInformationMessage(text);
-    } catch (error) {
-      this.showError(error, 'set skip-worktree');
-    }
+    this.runUpdateIndex(
+      '--skip-worktree',
+      file,
+      '{0} is skipping file changes in the local repository.',
+      'set skip-worktree'
+    );
   }
 
   // git update-index --no-skip-worktree
   public setNoSkipGitWorktree() {
     const file = this.getTargetRelativeFile();
     if (!file) return;
-    try {
-      this.gitCommand.runCommand('git', ['update-index', '--no-skip-worktree', file]);
-      const text = vscode.l10n.t(
-        '{0} is restored from skipping file changes in the local repository.',
-        file
-      );
-      vscode.window.showInformationMessage(text);
-    } catch (error) {
-      this.showError(error, 'unset skip-worktree');
-    }
+    this.runUpdateIndex(
+      '--no-skip-worktree',
+      file,
+      '{0} is restored from skipping file changes in the local repository.',
+      'unset skip-worktree'
+    );
+  }
+
+  private hasExcludeEntry(excludePath: string, file: string): boolean {
+    const content = fs.readFileSync(excludePath, 'utf8');
+    const candidate = `/${file}`;
+    return content
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .some((line) => line === candidate);
   }
 
   public appendGitExcludeUri() {
@@ -125,6 +139,13 @@ export class GitExclude {
     const exclude = gp.prepareGitExclude();
     if (!exclude) return;
     try {
+      if (this.hasExcludeEntry(exclude, file)) {
+        vscode.window.showInformationMessage(
+          vscode.l10n.t('{0} is already registered in exclude.', file)
+        );
+        this.openFile(exclude);
+        return;
+      }
       fs.appendFileSync(exclude, '/' + file + '\n');
       vscode.window.showInformationMessage(
         vscode.l10n.t('{0} is appended.', file)
@@ -176,9 +197,6 @@ export class GitExclude {
 
   private async getSkippedFiles(): Promise<string[]> {
     const result = this.gitCommand.runCommand('git', ['ls-files', '-v']);
-    return result
-      .split('\n')
-      .filter((line) => line.startsWith('S '))
-      .map((line) => line.substring(2).trim());
+    return parseSkippedFiles(result);
   }
 }
