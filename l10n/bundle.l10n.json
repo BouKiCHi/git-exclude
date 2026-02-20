@@ -4,7 +4,12 @@
   "{0} is skipping file changes in the local repository.": "{0} is skipping file changes in the local repository.",
   "{0} is restored from skipping file changes in the local repository.": "{0} is restored from skipping file changes in the local repository.",
   "{0} is appended.": "{0} is appended.",
+  "{0} is already registered in exclude.": "{0} is already registered in exclude.",
   "There are no files marked as skip in the current repository.": "There are no files marked as skip in the current repository.",
   "Files marked as skip in the current repository:": "Files marked as skip in the current repository:",
-  "Error retrieving the list of skip files: {0}": "Error retrieving the list of skip files: {0}"
+  "Error retrieving the list of skip files: {0}": "Error retrieving the list of skip files: {0}",
+  "Please select a file in the current workspace.": "Please select a file in the current workspace.",
+  "Failed to {0}: {1}": "Failed to {0}: {1}",
+  "Not git repository.": "Not git repository.",
+  "Create new Exclude file.": "Create new Exclude file."
 }

@@ -38,7 +38,7 @@ export class GitPath {
 
   public prepareGitExclude(): string | null {
     if (!this.gitPath || !this.gitExcludePath || !fs.existsSync(this.gitPath)) {
-      vscode.window.showInformationMessage('Not git repository.');
+      vscode.window.showInformationMessage(vscode.l10n.t('Not git repository.'));
       return null;
     }
 
@@ -50,7 +50,7 @@ export class GitPath {
 
     if (!fs.existsSync(exclude)) {
       fs.writeFileSync(exclude, '', 'utf-8');
-      vscode.window.showInformationMessage('Create new Exclude file.');
+      vscode.window.showInformationMessage(vscode.l10n.t('Create new Exclude file.'));
     }
 
     return exclude;

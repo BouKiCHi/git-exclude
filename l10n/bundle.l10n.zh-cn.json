@@ -4,7 +4,12 @@
   "{0} is skipping file changes in the local repository.": "{0} 正在跳过本地仓库中的文件变更。",
   "{0} is restored from skipping file changes in the local repository.": "{0} 已从跳过本地仓库文件变更的状态恢复。",
   "{0} is appended.": "{0} 已追加。",
+  "{0} is already registered in exclude.": "{0} 已存在于 exclude 中。",
   "There are no files marked as skip in the current repository.": "当前仓库中没有标记为跳过的文件。",
   "Files marked as skip in the current repository:": "当前仓库中标记为跳过的文件：",
-  "Error retrieving the list of skip files: {0}": "获取跳过文件列表时出错：{0}"
+  "Error retrieving the list of skip files: {0}": "获取跳过文件列表时出错：{0}",
+  "Please select a file in the current workspace.": "请选择当前工作区中的文件。",
+  "Failed to {0}: {1}": "{0} 失败：{1}",
+  "Not git repository.": "不是 Git 仓库。",
+  "Create new Exclude file.": "已创建新的 Exclude 文件。"
 }
