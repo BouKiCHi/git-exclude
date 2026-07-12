@@ -11,5 +11,7 @@
   "Please select a file in the current workspace.": "请选择当前工作区中的文件。",
   "Failed to {0}: {1}": "{0} 失败：{1}",
   "Not git repository.": "不是 Git 仓库。",
-  "Create new Exclude file.": "已创建新的 Exclude 文件。"
+  "Create new Exclude file.": "已创建新的 Exclude 文件。",
+  "{0} file(s) updated. {1} selection(s) had no tracked files. {2} item(s) failed.": "已更新 {0} 个文件。{1} 个选定项没有已跟踪文件。{2} 个项目失败。",
+  "{0} item(s) added to exclude. {1} already existed. {2} failed.": "已将 {0} 项添加到 exclude。{1} 项已存在。{2} 项失败。"
 }

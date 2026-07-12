@@ -3,13 +3,17 @@ import * as fs from 'fs';
 import * as vscode from 'vscode';
 import { FileItem } from './FileItem';
 import { GitCommand } from './GitCommand';
+import {
+  createGitExcludeEntry,
+  hasGitExcludeEntry
+} from './GitExcludePattern';
 import { GitPath } from './GitPath';
 
 export function parseSkippedFiles(lsFilesOutput: string): string[] {
   return lsFilesOutput
     .split('\n')
-    .filter((line) => line.startsWith('S '))
-    .map((line) => line.substring(2).trim())
+    .filter((line) => line.startsWith('S ') || line.startsWith('s '))
+    .map((line) => line.substring(2).replace(/\r$/, ''))
     .filter((line) => line.length > 0);
 }
 
@@ -49,7 +53,7 @@ export class GitExclude {
     errorAction: string
   ) {
     try {
-      this.gitCommand.runCommand('git', ['update-index', flag, file]);
+      this.gitCommand.runCommand('git', ['update-index', flag, '--', file]);
       vscode.window.showInformationMessage(vscode.l10n.t(successMessage, file));
     } catch (error) {
       this.showError(error, errorAction);
@@ -62,7 +66,12 @@ export class GitExclude {
     if (!file) return;
 
     try {
-      const result = this.gitCommand.runCommand('git', ['ls-files', '-v', file]);
+      const result = this.gitCommand.runCommand('git', [
+        'ls-files',
+        '-v',
+        '--',
+        file
+      ]);
       const output =
         this.output ?? vscode.window.createOutputChannel('git-exclude');
       output.appendLine(`>git ls-files -v ${file}`);
@@ -121,32 +130,25 @@ export class GitExclude {
     );
   }
 
-  private hasExcludeEntry(excludePath: string, file: string): boolean {
-    const content = fs.readFileSync(excludePath, 'utf8');
-    const candidate = `/${file}`;
-    return content
-      .split(/\r?\n/)
-      .map((line) => line.trim())
-      .some((line) => line === candidate);
-  }
-
   public appendGitExcludeUri() {
-    const gp = new GitPath(this.gitCommand);
-
     const file = this.getTargetRelativeFile();
     if (!file) return;
 
+    const gp = new GitPath(this.gitCommand, this.fileItem.file?.workspace.uri.fsPath);
     const exclude = gp.prepareGitExclude();
     if (!exclude) return;
     try {
-      if (this.hasExcludeEntry(exclude, file)) {
+      const entry = createGitExcludeEntry(file);
+      const legacyEntry = `/${file}`;
+      const content = fs.readFileSync(exclude, 'utf8');
+      if (hasGitExcludeEntry(content, entry) || hasGitExcludeEntry(content, legacyEntry)) {
         vscode.window.showInformationMessage(
           vscode.l10n.t('{0} is already registered in exclude.', file)
         );
         this.openFile(exclude);
         return;
       }
-      fs.appendFileSync(exclude, '/' + file + '\n');
+      fs.appendFileSync(exclude, `${entry}\n`);
       vscode.window.showInformationMessage(
         vscode.l10n.t('{0} is appended.', file)
       );
@@ -163,7 +165,7 @@ export class GitExclude {
   }
 
   public editGitExclude() {
-    let gp = new GitPath(this.gitCommand);
+    let gp = new GitPath(this.gitCommand, this.fileItem.file?.workspace.uri.fsPath);
     let file = gp.prepareGitExclude();
     if (!file) return;
     this.openFile(file);

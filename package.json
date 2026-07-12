@@ -2,7 +2,7 @@
   "name": "git-exclude",
   "displayName": "Git Exclude",
   "description": "Edit Git exclude File",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "publisher": "boukichi",
   "license": "MIT",
   "icon": "images/icon.png",
@@ -20,7 +20,9 @@
   "keywords": [
     "git"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension",
   "l10n": "./l10n",
   "contributes": {
@@ -79,6 +81,11 @@
         "command": "GitExclude.showAllSkipFile",
         "title": "%GitExclude.showAllSkipFile.title%",
         "category": "GitExclude"
+      },
+      {
+        "command": "GitExclude.showHelp",
+        "title": "%GitExclude.showHelp.title%",
+        "category": "GitExclude"
       }
     ],
     "menus": {
@@ -105,9 +112,9 @@
           "group": "GitExclude"
         }
       ],
-      "editor/title/context": [
+      "editor/title": [
         {
-          "submenu": "git-exclude.explorer-submenu",
+          "submenu": "git-exclude.editor-submenu",
           "group": "GitExclude"
         }
       ],
@@ -125,15 +132,15 @@
           "group": "GitExclude@3"
         },
         {
-          "submenu": "git-exclude.submenu.skip",
+          "submenu": "git-exclude.explorer-submenu.skip",
           "group": "GitExclude@4"
         },
         {
-          "submenu": "git-exclude.submenu.assume",
+          "submenu": "git-exclude.explorer-submenu.assume",
           "group": "GitExclude@5"
         }
       ],
-      "git-exclude.submenu.skip": [
+      "git-exclude.explorer-submenu.skip": [
         {
           "command": "GitExclude.skipGitWorktreeUri",
           "group": "GitExcludeSkip@1"
@@ -143,7 +150,7 @@
           "group": "GitExcludeSkip@2"
         }
       ],
-      "git-exclude.submenu.assume": [
+      "git-exclude.explorer-submenu.assume": [
         {
           "command": "GitExclude.setAssumeUnchangedUri",
           "group": "GitExcludeAssume@1"
@@ -166,6 +173,40 @@
           "command": "GitExclude.setAssumeUnchangedSCM",
           "group": "GitExclude"
         }
+      ],
+      "git-exclude.editor-submenu": [
+        {
+          "command": "GitExclude.appendGitExcludeUri",
+          "group": "GitExclude@1"
+        },
+        {
+          "command": "GitExclude.editGitExclude",
+          "group": "GitExclude@2"
+        },
+        {
+          "command": "GitExclude.showFileStatus",
+          "group": "GitExclude@3"
+        },
+        {
+          "command": "GitExclude.skipGitWorktreeUri",
+          "when": "gitExclude.isTracked && !gitExclude.isSkipWorktree",
+          "group": "GitExclude@4"
+        },
+        {
+          "command": "GitExclude.noSkipGitWorktreeUri",
+          "when": "gitExclude.isTracked && gitExclude.isSkipWorktree",
+          "group": "GitExclude@4"
+        },
+        {
+          "command": "GitExclude.setAssumeUnchangedUri",
+          "when": "gitExclude.isTracked && !gitExclude.isAssumeUnchanged",
+          "group": "GitExclude@5"
+        },
+        {
+          "command": "GitExclude.noAssumeUnchangedUri",
+          "when": "gitExclude.isTracked && gitExclude.isAssumeUnchanged",
+          "group": "GitExclude@5"
+        }
       ]
     },
     "submenus": [
@@ -174,11 +215,15 @@
         "label": "GitExclude"
       },
       {
-        "id": "git-exclude.submenu.skip",
+        "id": "git-exclude.editor-submenu",
+        "label": "GitExclude"
+      },
+      {
+        "id": "git-exclude.explorer-submenu.skip",
         "label": "Skip"
       },
       {
-        "id": "git-exclude.submenu.assume",
+        "id": "git-exclude.explorer-submenu.assume",
         "label": "Assume"
       }
     ]

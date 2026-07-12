@@ -5,35 +5,67 @@ import * as fs from 'fs';
 import { GitCommand } from './GitCommand';
 import { getCurrentWorkspaceFolder } from './getFolder';
 
+export interface GitRepositoryPaths {
+  gitPath: string | undefined;
+  gitExcludePath: string | undefined;
+}
+
+export function resolveGitRepositoryPaths(
+  gitCommand: Pick<GitCommand, 'runCommand'>,
+  workspacePath?: string
+): GitRepositoryPaths {
+  const resolveWorkspacePath = workspacePath ?? getCurrentWorkspaceFolder();
+
+  try {
+    const gitPath = gitCommand.runCommand(
+      'git',
+      ['rev-parse', '--git-dir'],
+      workspacePath
+    );
+    if (!gitPath || !resolveWorkspacePath) {
+      return { gitPath: undefined, gitExcludePath: undefined };
+    }
+
+    const resolvedGitPath = path.resolve(resolveWorkspacePath, gitPath.trim());
+    const excludePath = gitCommand.runCommand(
+      'git',
+      ['rev-parse', '--git-path', 'info/exclude'],
+      workspacePath
+    );
+
+    return {
+      gitPath: resolvedGitPath,
+      gitExcludePath: excludePath ? path.resolve(resolveWorkspacePath, excludePath.trim()) : undefined
+    };
+  } catch {
+    return { gitPath: undefined, gitExcludePath: undefined };
+  }
+}
+
+export function resolveGitRepositoryPathsFromUri(
+  gitCommand: Pick<GitCommand, 'runCommand'>,
+  fileUri?: vscode.Uri
+): GitRepositoryPaths {
+  if (!fileUri || fileUri.scheme !== 'file') {
+    return { gitPath: undefined, gitExcludePath: undefined };
+  }
+
+  const workspacePath = path.dirname(fileUri.fsPath);
+  return resolveGitRepositoryPaths(gitCommand, workspacePath);
+}
+
 export class GitPath {
   gitCommand: GitCommand;
   gitPath: string | undefined;
   gitExcludePath: string | undefined;
+  workspacePath: string | undefined;
 
-  constructor(gitCommand: GitCommand) {
+  constructor(gitCommand: GitCommand, workspacePath?: string) {
     this.gitCommand = gitCommand;
-    this.gitPath = this.getGitPath();
-    this.gitExcludePath = this.getGitExcludePath();
-  }
-
-  private getGitExcludePath(): string | undefined {
-    if (!this.gitPath) return undefined;
-    return path.join(this.gitPath, 'info', 'exclude');
-  }
-
-  private getGitPath(): string | undefined {
-    try {
-      const gitPath = this.gitCommand.runCommand('git', [
-        'rev-parse',
-        '--git-dir'
-      ]);
-      if (!gitPath) return undefined;
-      const wf = getCurrentWorkspaceFolder();
-      if (!wf) return undefined;
-      return path.resolve(wf, gitPath.trim());
-    } catch {
-      return undefined;
-    }
+    this.workspacePath = workspacePath;
+    const paths = resolveGitRepositoryPaths(gitCommand, workspacePath);
+    this.gitPath = paths.gitPath;
+    this.gitExcludePath = paths.gitExcludePath;
   }
 
   public prepareGitExclude(): string | null {

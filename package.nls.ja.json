@@ -6,5 +6,6 @@
   "GitExclude.noSkipGitWorktreeUri.title": "ファイルのスキップを解除します(--no-skip-worktree)",
   "GitExclude.setAssumeUnchangedUri.title": "ファイルを未変更として設定します(--assume-unchanged)",
   "GitExclude.noAssumeUnchangedUri.title": "ファイルの未変更設定を解除します(--no-assume-unchanged)",
-  "GitExclude.showAllSkipFile.title": "スキップされたすべてのファイルを表示します"
+  "GitExclude.showAllSkipFile.title": "スキップされたすべてのファイルを表示します",
+  "GitExclude.showHelp.title": "使い方"
 }

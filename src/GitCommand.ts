@@ -3,6 +3,8 @@ import * as child from 'child_process';
 import * as os from 'os';
 import { getCurrentWorkspaceFolder } from './getFolder';
 
+const gitOutputBufferSize = 16 * 1024 * 1024;
+
 type ExecFileSync = (
   command: string,
   args: readonly string[],
@@ -25,8 +27,67 @@ export class GitCommand {
     return `'${value.replace(/'/g, "''")}'`;
   }
 
-  public runCommand(command: string, args: string[] = []): string {
-    const workspacePath = this.getWorkspaceFolderFn();
+  private runExecFile(
+    command: string,
+    args: string[],
+    options: child.ExecFileOptionsWithStringEncoding
+  ): Promise<string> {
+    return new Promise((resolve, reject) => {
+      child.execFile(command, args, options, (error, stdout) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(stdout.toString());
+      });
+    });
+  }
+
+  public runCommandAsync(
+    command: string,
+    args: string[] = [],
+    workspacePath = this.getWorkspaceFolderFn()
+  ): Promise<string> {
+    if (!workspacePath) {
+      return Promise.reject(new Error('No workspace folder is available.'));
+    }
+
+    if (workspacePath.startsWith('\\')) {
+      if (os.platform() !== 'win32') {
+        return Promise.reject(
+          new Error('Network drive path is not supported outside of Windows')
+        );
+      }
+
+      const psCommand = `& ${this.quoteForPowerShell(command)} ${args
+        .map((arg) => this.quoteForPowerShell(arg))
+        .join(' ')}`;
+      return this.runExecFile(
+        'pwsh',
+        [
+          '-NoProfile',
+          '-NonInteractive',
+          '-WorkingDirectory',
+          workspacePath,
+          '-Command',
+          psCommand
+        ],
+        { encoding: 'utf8', maxBuffer: gitOutputBufferSize }
+      );
+    }
+
+    return this.runExecFile(command, args, {
+      cwd: workspacePath,
+      encoding: 'utf8',
+      maxBuffer: gitOutputBufferSize
+    });
+  }
+
+  public runCommand(
+    command: string,
+    args: string[] = [],
+    workspacePath = this.getWorkspaceFolderFn()
+  ): string {
     if (!workspacePath) {
       throw new Error('No workspace folder is available.');
     }
@@ -51,7 +112,8 @@ export class GitCommand {
           psCommand
         ],
         {
-          encoding: 'utf8'
+          encoding: 'utf8',
+          maxBuffer: gitOutputBufferSize
         }
       );
       return stdout.toString();
@@ -59,7 +121,8 @@ export class GitCommand {
 
     const stdout = this.execFileSyncFn(command, args, {
       cwd: workspacePath,
-      encoding: 'utf8'
+      encoding: 'utf8',
+      maxBuffer: gitOutputBufferSize
     });
     return stdout.toString();
   }

@@ -6,5 +6,6 @@
   "GitExclude.noSkipGitWorktreeUri.title": "取消跳过更改 (--no-skip-worktree)",
   "GitExclude.setAssumeUnchangedUri.title": "设置状态为未更改 (--assume-unchanged)",
   "GitExclude.noAssumeUnchangedUri.title": "恢复状态为已更改 (--no-assume-unchanged)",
-  "GitExclude.showAllSkipFile.title": "显示所有被跳过的文件"
+  "GitExclude.showAllSkipFile.title": "显示所有被跳过的文件",
+  "GitExclude.showHelp.title": "帮助"
 }

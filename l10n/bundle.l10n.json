@@ -11,5 +11,7 @@
   "Please select a file in the current workspace.": "Please select a file in the current workspace.",
   "Failed to {0}: {1}": "Failed to {0}: {1}",
   "Not git repository.": "Not git repository.",
-  "Create new Exclude file.": "Create new Exclude file."
+  "Create new Exclude file.": "Create new Exclude file.",
+  "{0} file(s) updated. {1} selection(s) had no tracked files. {2} item(s) failed.": "{0} file(s) updated. {1} selection(s) had no tracked files. {2} item(s) failed.",
+  "{0} item(s) added to exclude. {1} already existed. {2} failed.": "{0} item(s) added to exclude. {1} already existed. {2} failed."
 }

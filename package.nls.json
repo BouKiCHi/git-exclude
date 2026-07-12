@@ -6,5 +6,6 @@
   "GitExclude.noSkipGitWorktreeUri.title": "Unskip changes (--no-skip-worktree)",
   "GitExclude.setAssumeUnchangedUri.title": "Mark as unchanged (--assume-unchanged)",
   "GitExclude.noAssumeUnchangedUri.title": "Unmark as unchanged (--no-assume-unchanged)",
-  "GitExclude.showAllSkipFile.title": "Show all skipped files"
+  "GitExclude.showAllSkipFile.title": "Show all skipped files",
+  "GitExclude.showHelp.title": "Help"
 }
