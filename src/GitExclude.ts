@@ -8,6 +8,7 @@ import {
   hasGitExcludeEntry
 } from './GitExcludePattern';
 import { GitPath } from './GitPath';
+import { getCurrentWorkspaceFolder } from './getFolder';
 
 export function parseSkippedFiles(lsFilesOutput: string): string[] {
   return lsFilesOutput
@@ -24,7 +25,10 @@ export class GitExclude {
 
   constructor(fileUri?: vscode.Uri, output?: vscode.OutputChannel) {
     this.fileItem = new FileItem(fileUri);
-    this.gitCommand = new GitCommand();
+    this.gitCommand = new GitCommand(
+      undefined,
+      () => this.fileItem.file?.workspace.uri.fsPath ?? getCurrentWorkspaceFolder()
+    );
     this.output = output;
   }
 

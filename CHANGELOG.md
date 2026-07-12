@@ -1,5 +1,19 @@
 # CHANGELOG
 
+### 0.4.7
+* Fixed Windows path handling in Linux-based test environments.
+* Fixed Git commands targeting the wrong repository in multi-root workspaces.
+* Fixed repository-boundary validation for filenames beginning with two dots.
+* Added a PowerShell fallback for Windows network-drive workspaces.
+* Updated CI to run VS Code tests with a virtual display.
+
+### 0.4.6
+* Added batch operations for multiple files and folders.
+* Added support for repository-local exclude entries, skip-worktree, and assume-unchanged operations from Explorer and SCM menus.
+* Improved Git path resolution for subdirectories, linked worktrees, and Windows network drives.
+* Added status display, skipped-file listing, help documentation, and localization updates.
+* Added tests for Git state handling, path resolution, exclude patterns, and batch operations.
+
 ### 0.4.5
 * Hardened git command execution (safer process invocation and argument handling).
 * Added guards for missing workspace/file context to avoid runtime errors.

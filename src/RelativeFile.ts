@@ -12,10 +12,15 @@ export class RelativeFile {
         this.workspace = wf;
         this.fileUri = fileUri;
 
-        this.relativePath = path.relative(wf.uri.fsPath, fileUri.fsPath);
-        this.relativeDirectory = path.dirname(this.relativePath);
+        const isWindowsPath = /^[A-Za-z]:[\\/]/;
+        const pathApi = isWindowsPath.test(wf.uri.fsPath) || isWindowsPath.test(fileUri.fsPath)
+            ? path.win32
+            : path;
+
+        this.relativePath = pathApi.relative(wf.uri.fsPath, fileUri.fsPath);
+        this.relativeDirectory = pathApi.dirname(this.relativePath);
 
 
-        this.relativeSlashPath = (process.platform === "win32") ? this.relativePath.replace(/\\/g, '/') : this.relativePath;
+        this.relativeSlashPath = this.relativePath.replace(/\\/g, '/');
     }
 }

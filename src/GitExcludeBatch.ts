@@ -123,7 +123,11 @@ export async function resolveRepositoryTarget(
     throw error;
   }
   const relativePath = path.relative(root, uri.fsPath);
-  if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+  const isOutsideRepository =
+    relativePath === '..' ||
+    relativePath.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relativePath);
+  if (isOutsideRepository) {
     throw new Error('The selected path is outside of its Git repository.');
   }
 

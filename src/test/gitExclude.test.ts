@@ -180,6 +180,25 @@ suite('GitExclude Test Suite', () => {
     }
   });
 
+  test('resolveRepositoryTarget accepts filenames beginning with two dots', async () => {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'git-exclude-'));
+    const filePath = path.join(tempRoot, '..config');
+    fs.writeFileSync(filePath, '');
+
+    try {
+      const target = await resolveRepositoryTarget(vscode.Uri.file(filePath), {
+        runCommandAsync: async () => `${tempRoot}\n`
+      });
+
+      assert.deepStrictEqual(target, {
+        root: tempRoot,
+        relativePath: '..config'
+      });
+    } finally {
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  });
+
   test('resolveGitRepositoryPaths uses the provided workspace path', () => {
     const workspacePath = path.join(os.tmpdir(), 'workspace');
     const gitDir = path.join(workspacePath, '.git');

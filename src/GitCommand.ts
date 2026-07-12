@@ -43,6 +43,28 @@ export class GitCommand {
     });
   }
 
+  private runPowerShellAsync(
+    args: string[],
+    options: child.ExecFileOptionsWithStringEncoding
+  ): Promise<string> {
+    return this.runExecFile('pwsh', args, options).catch((error: NodeJS.ErrnoException) => {
+      if (error.code !== 'ENOENT') throw error;
+      return this.runExecFile('powershell.exe', args, options);
+    });
+  }
+
+  private runPowerShellSync(
+    args: readonly string[],
+    options: child.ExecFileSyncOptionsWithStringEncoding
+  ): string | Buffer {
+    try {
+      return this.execFileSyncFn('pwsh', args, options);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+      return this.execFileSyncFn('powershell.exe', args, options);
+    }
+  }
+
   public runCommandAsync(
     command: string,
     args: string[] = [],
@@ -62,8 +84,7 @@ export class GitCommand {
       const psCommand = `& ${this.quoteForPowerShell(command)} ${args
         .map((arg) => this.quoteForPowerShell(arg))
         .join(' ')}`;
-      return this.runExecFile(
-        'pwsh',
+      return this.runPowerShellAsync(
         [
           '-NoProfile',
           '-NonInteractive',
@@ -101,8 +122,7 @@ export class GitCommand {
       const psCommand = `& ${this.quoteForPowerShell(command)} ${args
         .map((arg) => this.quoteForPowerShell(arg))
         .join(' ')}`;
-      const stdout = this.execFileSyncFn(
-        'pwsh',
+      const stdout = this.runPowerShellSync(
         [
           '-NoProfile',
           '-NonInteractive',
