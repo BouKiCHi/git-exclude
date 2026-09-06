@@ -1,5 +1,9 @@
 # CHANGELOG
 
+### 0.4.8
+* Added an action to open the affected `.git/info/exclude` file from the batch-add notification.
+* Added localization for the new notification action.
+
 ### 0.4.7
 * Fixed Windows path handling in Linux-based test environments.
 * Fixed Git commands targeting the wrong repository in multi-root workspaces.

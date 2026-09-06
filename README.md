@@ -10,6 +10,7 @@ changes to tracked files.
 
 - Open a file and choose **GitExclude** from the editor's `...` menu.
 - Right-click a file or folder in Explorer and choose **GitExclude**.
+- Right-click a changed file in the Source Control view and choose **Add file/folder to exclusion**.
 - Select multiple files or folders in Explorer to apply Exclude, Skip, or Assume
   operations to them together.
 - Run a GitExclude command from the Command Palette (`F1`).
@@ -23,6 +24,9 @@ Run **GitExclude: Help** from the Command Palette to open this guide in VS Code.
 Adds an untracked file or folder to `.git/info/exclude`. This is similar to a
 repository-local `.gitignore`: it is not committed or shared with other users.
 It does not hide changes to files that Git already tracks.
+
+After adding files or folders from Explorer, the notification's **Open exclude
+file** action opens the affected exclude file.
 
 ### Skip changes (`--skip-worktree`)
 
