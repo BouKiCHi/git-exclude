@@ -13,5 +13,6 @@
   "Not git repository.": "Git リポジトリではありません。",
   "Create new Exclude file.": "新しい Exclude ファイルを作成しました。",
   "{0} file(s) updated. {1} selection(s) had no tracked files. {2} item(s) failed.": "{0} 個のファイルを更新しました。{1} 件の選択項目には追跡済みファイルがありませんでした。{2} 件の項目で失敗しました。",
-  "{0} item(s) added to exclude. {1} already existed. {2} failed.": "{0} 件を exclude に追加しました。{1} 件は登録済みでした。{2} 件で失敗しました。"
+  "{0} item(s) added to exclude. {1} already existed. {2} failed.": "{0} 件を exclude に追加しました。{1} 件は登録済みでした。{2} 件で失敗しました。",
+  "Open exclude file": "exclude ファイルを開く"
 }

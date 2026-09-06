@@ -263,6 +263,7 @@ export class GitExcludeBatch {
   public async appendToExclude(uris: readonly vscode.Uri[]) {
     this.output.clear();
     const result: BatchResult = { updated: 0, unchanged: 0, failed: 0 };
+    const excludePaths: string[] = [];
     const repositories = await this.groupByRepository(uris);
     result.failed += repositories.failed;
 
@@ -274,6 +275,7 @@ export class GitExcludeBatch {
           root
         );
         const excludePath = path.resolve(root, excludeOutput.trim());
+        if (!excludePaths.includes(excludePath)) excludePaths.push(excludePath);
         await fs.promises.mkdir(path.dirname(excludePath), { recursive: true });
 
         let content = '';
@@ -320,22 +322,45 @@ export class GitExcludeBatch {
       }
     }
 
-    this.showExcludeResult(result);
+    this.showExcludeResult(result, excludePaths);
   }
 
-  private showExcludeResult(result: BatchResult) {
+  private showExcludeResult(
+    result: BatchResult,
+    excludePaths: readonly string[]
+  ) {
     const message = vscode.l10n.t(
       '{0} item(s) added to exclude. {1} already existed. {2} failed.',
       result.updated,
       result.unchanged,
       result.failed
     );
-
     if (result.failed > 0) {
       this.output.show();
-      vscode.window.showWarningMessage(message);
-    } else {
-      vscode.window.showInformationMessage(message);
     }
+
+    const openExcludeFile = vscode.l10n.t('Open exclude file');
+    const notification = excludePaths.length > 0
+      ? result.failed > 0
+        ? vscode.window.showWarningMessage(message, openExcludeFile)
+        : vscode.window.showInformationMessage(message, openExcludeFile)
+      : result.failed > 0
+        ? vscode.window.showWarningMessage(message)
+        : vscode.window.showInformationMessage(message);
+
+    void notification.then((action) => {
+      if (action !== openExcludeFile) return;
+
+      void (async () => {
+        for (const excludePath of excludePaths) {
+          try {
+            const document = await vscode.workspace.openTextDocument(excludePath);
+            await vscode.window.showTextDocument(document);
+          } catch (error) {
+            this.reportError(excludePath, error);
+          }
+        }
+      })();
+    });
   }
 }
